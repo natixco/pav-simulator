@@ -4,7 +4,7 @@
   import { browser } from '$app/environment';
   import { COLORS, PEDALS, type Signal, SOUNDS, SPEED, type Speed, TEST_MODE, type TestMode } from '$lib';
   import { type ControlId, type ControlOptions, loadControls } from '$lib/controls';
-  import Button from '../../../components/Button.svelte';
+  import Button from '../../../../components/Button.svelte';
   import { saveResult } from '$lib/results';
   import { goto } from '$app/navigation';
   import { Howl } from 'howler';
@@ -156,7 +156,7 @@
     }
 
     const url = new URL(window.location.href);
-    url.pathname = locale.get();
+    url.pathname = `${locale.get()}/determination-test`;
     goto(url);
   }
 

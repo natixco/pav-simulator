@@ -46,7 +46,7 @@
 
   function start(): void {
     const url = new URL(window.location.href);
-    url.pathname = `${locale.get()}/test`;
+    url.pathname = `${locale.get()}/determination-test/test`;
     url.searchParams.set('speed', selectedSpeed);
     url.searchParams.set('mode', selectedMode);
     if (selectedMode === TEST_MODE.REACTION) {
