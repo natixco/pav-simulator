@@ -65,4 +65,16 @@
     "ACTION_DESC": "Nincs időkorlát",
     "REACTION_DESC": "Fix időkorlát"
   }
+  ,
+  "MONOTONY_INSTRUCTIONS": {
+    "DESCRIPTION": "A monotónia teszt ismétlődő vizuális mintákat jelenít meg. A feladatod eldönteni, hogy az alsó minta a fenti helyes minták halmazába tartozik-e. A teszt a monoton környezetben fenntartott figyelmet méri. A hivatalos teszt eltérő vizuális mintákat használhat; ez a szimulátor csak az általános működést modellezi. Nincs nyilvános, hivatalos dokumentáció sem a pontos pontozásról, sem a teszt időtartamáról, de általában 5–10 perc közé esik.",
+    "HOW_TO_PLAY": "Teszt útmutató",
+    "STEPS": {
+      "GOAL": "Cél: Ha az alsó minta a helyes halmaz része, nyomj Igen-t; különben Nem-et.",
+      "KEYS": "Billentyűk: C = Igen, M = Nem.",
+      "DURATION": "Időtartam: A teszt 7 percig tart, hacsak nem állítod le.",
+      "SCORING": "Pontozás: Minden válasz beleszámít; a helyes válaszok növelik a pontszámot.",
+      "TIPS": "Tipp: Ahelyett, hogy egyes alakzatokat memorizálnál, a helyes halmaz szerkezeti szabályaira figyelj."
+    }
+  }
 }

@@ -62,4 +62,16 @@
     "ACTION_DESC": "No time limit",
     "REACTION_DESC": "Fixed time limit"
   }
+  ,
+  "MONOTONY_INSTRUCTIONS": {
+    "DESCRIPTION": "The monotony test presents repeated visual patterns. Your task is to quickly decide if the bottom pattern matches the category of correct patterns shown above. The test measures sustained attention under monotonous conditions. The official test may use different visual patterns; this simulator captures the general idea only. There is no public, official documentation on the exact scoring method and the duration of the test, but it takes between 5–10 minutes.",
+    "HOW_TO_PLAY": "Test instructions",
+    "STEPS": {
+      "GOAL": "Goal: If the bottom pattern is in the correct set, press Yes; otherwise press No.",
+      "KEYS": "Keys: Press C for Yes and M for No.",
+      "DURATION": "Duration: The test runs for 7 minutes unless stopped.",
+      "SCORING": "Scoring: Each response counts toward your total; correct answers increase your score.",
+      "TIPS": "Tip: Focus on the structural rules of the correct set rather than memorizing individual shapes."
+    }
+  }
 }

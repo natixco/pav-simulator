@@ -145,6 +145,5 @@
         </div>
     {/if}
 
-    <!-- Start Button -->
     <Button label="Start" size="base" onClick={() => start()}/>
 </div> 
