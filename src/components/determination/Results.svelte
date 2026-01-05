@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { loadResults } from '$lib/results/index.js';
   import { t } from '$lib/translations';
+  import { determinationStore } from '$lib/results';
 
-  const results = loadResults();
+  const results = determinationStore.getAll();
 
   function getSpeedLabel(speed: string): string {
     const labels: Record<string, string> = {
-      slow: $t('SPEED.SLOW'),
-      medium: $t('SPEED.MEDIUM'),
-      fast: $t('SPEED.FAST')
+      slow: $t('DETERMINATION_TEST.SETTINGS.SPEED.SLOW'),
+      medium: $t('DETERMINATION_TEST.SETTINGS.SPEED.MEDIUM'),
+      fast: $t('DETERMINATION_TEST.SETTINGS.SPEED.FAST')
     }
     return labels[speed];
   }
@@ -18,7 +18,7 @@
     <div class="flex flex-col gap-4 w-full">
         <div class="grid grid-cols-1 gap-4">
             {#each results.reverse() as result}
-                <div class="bg-stone-200 p-4 rounded-md border border-stone-400 flex flex-col gap-6">
+                <div class="bg-stone-200 p-4 border border-stone-400 flex flex-col gap-6">
                     <div class="text-sm text-stone-600">
                         {new Date(result.timestamp).toLocaleString()}
                     </div>
@@ -58,6 +58,6 @@
     </div>
 {:else}
     <div class="flex flex-col items-center justify-center text-center py-10">
-        <p class="text-stone-900">No test results yet. Complete a test to see your performance history here.</p>
+        <p class="text-stone-900">{$t('RESULTS.EMPTY')}</p>
     </div>
 {/if}

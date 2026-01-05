@@ -1,41 +1,72 @@
 {
   "TITLE": "PÁV szimulátor",
-  "MONOTONY_TEST": "Monotónia teszt",
-  "DETERMINATION_TEST": "Determinációs teszt",
-  "INSTRUCTIONS": {
-    "DESCRIPTION": "A Determinációs Teszt (DT) a Vienna Test System kognitív értékelő eszköze, amelyet gyakran használnak járművezetői alkalmassági vizsgálatokon. A teszt a reakcióidőt, a figyelmet és a stressz-toleranciát méri különböző ingerekre adott többszörös választási reakciókon keresztül. Ezt a tesztet Magyarországon a hivatásos gépjárművezetők PÁV (Pályaalkalmassági Vizsgálat) vizsgálatának részeként is használják.",
-    "HOW_TO_PLAY": "Teszt útmutató",
-    "STEPS": {
-      "MODE": "Válassz teszt módot",
-      "MODE_ADAPTIVE": "Adaptív: A sebesség igazodik a teljesítményhez",
-      "MODE_ACTION": "Akció: Nincs időkorlát",
-      "MODE_REACTION": "Reakció: Fix időkorlát",
-      "SPEED": "Válassz egy sebességet (Lassú, Közepes vagy Gyors), majd kattints a \"Start\" gombra.",
-      "COLORS": "Amikor egy színes kör jelenik meg a felső két sorban, nyomd meg a színhez tartozó megfelelő gombot.",
-      "PEDALS": "Amikor az alsó körök (bal vagy jobb) fehérre változnak, nyomd meg az oldalhoz megfelelő gombot.",
-      "SOUNDS": "Amikor hangot hallasz, nyomd meg a hangnak megfelelő gombot (mély vagy magas).",
-      "TIMING": "Minden jelre reagálnod kell, mielőtt a következő megjelenik."
+  "HOME": {
+    "1": "A Pályaalkalmassági Vizsgálat (PÁV) egy kötelező pszichológiai és képességfelmérő vizsga hivatásos járművezetők számára. A reakciósebességet és figyelmet mérő számítógépes tesztek mellett a vizsgálat része egy pszichológussal történő személyes beszélgetés is, amely a személyiségjegyek és a járművezetői attitűd felmérésére szolgál.",
+    "2": "Ez a szimulátor a vizsga számítógépes részének begyakorlásában segít. A kezdéshez válassz egy tesztet a fenti menüsorból."
+  },
+  "TEST_INSTRUCTIONS": "Teszt útmutató",
+  "MONOTONY_TEST": {
+    "TITLE": "Monotónia teszt",
+    "INSTRUCTIONS": {
+      "DESCRIPTION": "A monotónia teszt során ismétlődő vizuális minták jelennek meg. A feladatod annak gyors eldöntése, hogy az alsó minta megegyezik-e a fent látható helyes minták közül bármelyikkel. A teszt a tartós figyelmet méri monoton körülmények között.",
+      "DESCRIPTION2": "A hivatalos vizsgálat eltérő vizuális mintákat használhat; ez a szimulátor csupán az alapkoncepciót szemlélteti. A pontos pontozási módszerről és a teszt időtartamáról nincs nyilvános, hivatalos dokumentáció, de általában 5–10 percet vesz igénybe.",
+      "STEPS": {
+        "GOAL": "Cél: Ha az alsó minta a helyes halmaz része, nyomj Igen-t; különben Nem-et.",
+        "KEYS": "Billentyűk: \"C\" = Igen, \"M\" = Nem.",
+        "DURATION": "Időtartam: A teszt 7 percig tart, hacsak nem állítod le.",
+        "SCORING": "Pontozás: Minden válasz beleszámít; a helyes válaszok növelik a pontszámot.",
+        "TIPS": "Tipp: Ahelyett, hogy egyes alakzatokat memorizálnál, a helyes halmaz szerkezeti szabályaira figyelj."
+      }
     }
   },
-  "GAME_CONTROLS": {
-    "INSTRUCTIONS": "Teszt beállítások",
-    "DURATION_TITLE": "Időkorlát",
-    "DURATION_MINUTES": "perc"
-  },
-  "SPEED": {
-    "TITLE": "Sebesség",
-    "SLOW": "Lassú",
-    "MEDIUM": "Közepes",
-    "FAST": "Gyors"
+  "DETERMINATION_TEST": {
+    "TITLE": "Determinációs teszt",
+    "INSTRUCTIONS": {
+      "DESCRIPTION": "A Determinációs Teszt (DT) a Vienna Test System kognitív értékelő eszköze, amelyet gyakran használnak járművezetői alkalmassági vizsgálatokon. A teszt a reakcióidőt, a figyelmet és a stressztűrést méri különböző ingerekre adott választási reakciókon keresztül.",
+      "STEPS": {
+        "MODE": "Válassz teszt módot",
+        "SPEED": "Válassz egy sebességet (Lassú, Közepes vagy Gyors), majd kattints a \"Start\" gombra.",
+        "COLORS": "Amikor egy színes kör jelenik meg a felső két sorban, nyomd meg a színhez tartozó megfelelő gombot.",
+        "PEDALS": "Amikor az egyik alsó téglalap (bal vagy jobb) fehérre változik, nyomd meg az oldalhoz megfelelő gombot.",
+        "SOUNDS": "Amikor hangot hallasz, nyomd meg a hangnak megfelelő gombot (mély vagy magas).",
+        "TIMING": "Minden jelre reagálnod kell, mielőtt a következő megjelenik."
+      }
+    },
+    "SETTINGS": {
+      "INSTRUCTIONS": "Teszt beállítások",
+      "DURATION": {
+        "TITLE": "Időkorlát",
+        "MINUTES": "perc"
+      },
+      "TEST_MODE": {
+        "TITLE": "Teszt mód",
+        "UNLIMITED": {
+          "TITLE": "Korlátlan",
+          "DESCRIPTION": "A teszt addig tart ameddig meg nem állítod."
+        },
+        "LIMITED": {
+          "TITLE": "Időkorlátos",
+          "DESCRIPTION": "A teszt a megadott ideig tart vagy ameddig meg nem állítod."
+        }
+      },
+      "SPEED": {
+        "TITLE": "Sebesség",
+        "SLOW": "Lassú",
+        "MEDIUM": "Közepes",
+        "FAST": "Gyors"
+      }
+    }
   },
   "RESULTS": {
     "TITLE": "Korábbi eredmények",
     "SPEED": "Sebesség",
-    "TOTAL": "Összes jel",
+    "ACCURACY": "Pontosság",
+    "TOTAL": "Összes",
     "CORRECT": "Helyes válaszok",
     "INCORRECT": "Helytelen válaszok",
     "OMITTED": "Kihagyott válaszok",
-    "RESPONSE_TIMES": "Átlagos / Medián reakcióidő"
+    "RESPONSE_TIMES": "Átlagos / Medián reakcióidő",
+    "EMPTY": "Még nincsenek teszteredmények. Végezz el egy tesztet, hogy itt láthasd az előzményeidet."
   },
   "KEYBINDINGS": {
     "TITLE": "Irányítás",
@@ -55,26 +86,5 @@
     "EDIT": "Módosítás",
     "CANCEL_EDIT": "Mégse",
     "PRESS_ANY_KEY": "Nyomj meg egy billentyűt a következőhöz:"
-  },
-  "TEST_MODE": {
-    "TITLE": "Teszt mód",
-    "ADAPTIVE_SHORT": "Adaptív",
-    "ACTION_SHORT": "Akció",
-    "REACTION_SHORT": "Reakció",
-    "ADAPTIVE_DESC": "A jelek megjelenési sebessége igazodik a vizsgált személy teljesítményéhez",
-    "ACTION_DESC": "Nincs időkorlát",
-    "REACTION_DESC": "Fix időkorlát"
-  }
-  ,
-  "MONOTONY_INSTRUCTIONS": {
-    "DESCRIPTION": "A monotónia teszt ismétlődő vizuális mintákat jelenít meg. A feladatod eldönteni, hogy az alsó minta a fenti helyes minták halmazába tartozik-e. A teszt a monoton környezetben fenntartott figyelmet méri. A hivatalos teszt eltérő vizuális mintákat használhat; ez a szimulátor csak az általános működést modellezi. Nincs nyilvános, hivatalos dokumentáció sem a pontos pontozásról, sem a teszt időtartamáról, de általában 5–10 perc közé esik.",
-    "HOW_TO_PLAY": "Teszt útmutató",
-    "STEPS": {
-      "GOAL": "Cél: Ha az alsó minta a helyes halmaz része, nyomj Igen-t; különben Nem-et.",
-      "KEYS": "Billentyűk: C = Igen, M = Nem.",
-      "DURATION": "Időtartam: A teszt 7 percig tart, hacsak nem állítod le.",
-      "SCORING": "Pontozás: Minden válasz beleszámít; a helyes válaszok növelik a pontszámot.",
-      "TIPS": "Tipp: Ahelyett, hogy egyes alakzatokat memorizálnál, a helyes halmaz szerkezeti szabályaira figyelj."
-    }
   }
 }

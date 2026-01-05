@@ -2,15 +2,30 @@
   import { locale } from '$lib/translations';
   import { page } from '$app/state';
   import { browser } from '$app/environment';
-  import { COLORS, PEDALS, type Signal, SOUNDS, SPEED, type Speed, TEST_MODE, type TestMode } from '$lib';
-  import { type ControlId, type ControlOptions, loadControls } from '$lib/controls';
+  import {
+    COLORS,
+    PEDALS,
+    type Signal,
+    SOUNDS,
+    SPEED,
+    type Speed,
+    TEST_MODE,
+    type TestMode,
+  } from '$lib';
+  import {
+    type ControlId,
+    type ControlOptions,
+    loadControls,
+  } from '$lib/controls';
   import Button from '../../../../components/Button.svelte';
-  import { saveResult } from '$lib/results';
   import { goto } from '$app/navigation';
   import { Howl } from 'howler';
+  import Container from '../../../../components/Container.svelte';
+  import { determinationStore } from '$lib/results';
 
   const speed = (page.url.searchParams.get('speed') ?? SPEED.SLOW) as Speed;
-  const mode = (page.url.searchParams.get('mode') ?? TEST_MODE.REACTION) as TestMode;
+  const mode = (page.url.searchParams.get('mode') ??
+    TEST_MODE.LIMITED) as TestMode;
   const duration = parseInt(page.url.searchParams.get('duration') ?? '2', 10);
   const controls = loadControls();
   const intervalTimeout = getIntervalTimeout(speed);
@@ -38,7 +53,7 @@
     blue: 'bg-blue-500',
     white: 'bg-white',
     green: 'bg-green-500',
-    yellow: 'bg-yellow-500'
+    yellow: 'bg-yellow-500',
   };
 
   let score = $state<{
@@ -51,25 +66,24 @@
   let pressedAnyKey = $state(false);
   let signalStartTime = $state<number>();
 
-  let timeLeft = $state(mode === TEST_MODE.REACTION ? duration * 60 : Infinity);
+  let timeLeft = $state(mode === TEST_MODE.LIMITED ? duration * 60 : Infinity);
   let timerInterval = $state<number>();
-  let adaptiveIntervalTimeout = $state<number>(intervalTimeout);
 
   if (browser) {
     deepSound = new Howl({
       src: ['/sounds/soundDeep.wav'],
       preload: true,
-      volume: 1.0
+      volume: 1.0,
     });
 
     highSound = new Howl({
       src: ['/sounds/soundHigh.wav'],
       preload: true,
-      volume: 1.0
+      volume: 1.0,
     });
 
     start();
-    if (mode === TEST_MODE.REACTION) {
+    if (mode === TEST_MODE.LIMITED) {
       startTimer();
     }
   }
@@ -95,7 +109,7 @@
     const timeouts: Record<Speed, number> = {
       [SPEED.SLOW]: 3000,
       [SPEED.MEDIUM]: 2000,
-      [SPEED.FAST]: 1000
+      [SPEED.FAST]: 1000,
     };
     return timeouts[speed];
   }
@@ -114,7 +128,13 @@
   }
 
   function start(): void {
-    score = { total: 0, correct: 0, incorrect: 0, omitted: 0, responseTimes: [] };
+    score = {
+      total: 0,
+      correct: 0,
+      incorrect: 0,
+      omitted: 0,
+      responseTimes: [],
+    };
     signalStartTime = undefined;
     intervalId = setInterval(generateSignal, intervalTimeout);
   }
@@ -143,7 +163,7 @@
     previousSound = undefined;
 
     if (score.total > 0) {
-      saveResult({
+      determinationStore.add({
         timestamp: Date.now(),
         total: score.total,
         correct: score.correct,
@@ -151,7 +171,7 @@
         omitted: score.omitted,
         averageResponseTime: getAverageResponseTime(),
         medianResponseTime: getMedianResponseTime(),
-        speed
+        speed,
       });
     }
 
@@ -165,7 +185,9 @@
       return;
     }
 
-    const control = Object.entries(controls).find(([_, options]) => options.code === event.code) as [ControlId, ControlOptions] | undefined;
+    const control = Object.entries(controls).find(
+      ([_, options]) => options.code === event.code
+    ) as [ControlId, ControlOptions] | undefined;
     if (!control || !activeSignal || !signalStartTime) {
       return;
     }
@@ -181,7 +203,6 @@
       score.incorrect++;
     }
 
-    adjustSpeed(isCorrect);
     signalStartTime = undefined;
   }
 
@@ -230,23 +251,6 @@
     }
   }
 
-  function adjustSpeed(isCorrect: boolean) {
-    if (mode !== TEST_MODE.ADAPTIVE) {
-      return;
-    }
-
-    if (isCorrect) {
-      adaptiveIntervalTimeout = Math.max(500, adaptiveIntervalTimeout - 100);
-    } else {
-      adaptiveIntervalTimeout = Math.min(3000, adaptiveIntervalTimeout + 200);
-    }
-
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = setInterval(generateSignal, adaptiveIntervalTimeout);
-    }
-  }
-
   function getAverageResponseTime(): number {
     if (score.responseTimes.length === 0) {
       return 0;
@@ -276,15 +280,20 @@
   }
 
   function checkCorrectResponse(controlId: ControlId): boolean {
-    return (activeSignal === 'color' && ((controlId === 'colorRed' && activeColor === 'red') ||
-        (controlId === 'colorBlue' && activeColor === 'blue') ||
-        (controlId === 'colorGreen' && activeColor === 'green') ||
-        (controlId === 'colorYellow' && activeColor === 'yellow') ||
-        (controlId === 'colorWhite' && activeColor === 'white'))) ||
-      (activeSignal === 'pedal' && ((controlId === 'pedalLeft' && activePedal === 'left') ||
-        (controlId === 'pedalRight' && activePedal === 'right'))) ||
-      (activeSignal === 'sound' && ((controlId === 'soundDeep' && activeSound === 'soundDeep') ||
-        (controlId === 'soundHigh' && activeSound === 'soundHigh')));
+    return (
+      (activeSignal === 'color' &&
+        ((controlId === 'colorRed' && activeColor === 'red') ||
+          (controlId === 'colorBlue' && activeColor === 'blue') ||
+          (controlId === 'colorGreen' && activeColor === 'green') ||
+          (controlId === 'colorYellow' && activeColor === 'yellow') ||
+          (controlId === 'colorWhite' && activeColor === 'white'))) ||
+      (activeSignal === 'pedal' &&
+        ((controlId === 'pedalLeft' && activePedal === 'left') ||
+          (controlId === 'pedalRight' && activePedal === 'right'))) ||
+      (activeSignal === 'sound' &&
+        ((controlId === 'soundDeep' && activeSound === 'soundDeep') ||
+          (controlId === 'soundHigh' && activeSound === 'soundHigh')))
+    );
   }
 </script>
 
@@ -294,40 +303,49 @@
 
 <svelte:window onkeydown={onWindowKeydown}/>
 
-<div class="min-h-screen flex flex-col items-center justify-center w-full">
-    {#if mode === TEST_MODE.REACTION}
-        <div class="absolute top-4 right-4 text-2xl font-mono">
-            {formatTime(timeLeft)}
-        </div>
-    {/if}
-
-    <div class="flex flex-col items-center justify-center gap-15 w-full">
-        <div class="flex flex-col items-center justify-center gap-5 w-full">
-            {#each [topCircles, bottomCircles] as row}
-                <div class="flex flex-row items-center justify-between w-full">
-                    {#each row as index}
-                        <div class={[
-              'size-26 border border-stone-900 rounded-full',
-              activeCircleIndex === index && activeSignal === 'color' ? getColorClass() : 'bg-stone-900'
-            ]}></div>
-                    {/each}
+<Container>
+    <div class="flex flex-row items-center justify-between w-full mt-10 mb-40">
+        <Button label="Stop" size="base" variant="secondary" onClick={() => stop()}/>
+        <div>
+            {#if mode === TEST_MODE.LIMITED}
+                <div class="text-2xl font-mono">
+                    {formatTime(timeLeft)}
                 </div>
-            {/each}
-        </div>
-
-        <div class="flex flex-row items-center justify-between w-full">
-            {#each ['left', 'right'] as side}
-                <div class={[
-                    'w-20 h-40 border border-stone-900 rounded-sm',
-                    activeSignal === 'pedal' && activePedal === side ? 'bg-white' : 'bg-stone-900'
-                  ]}></div>
-            {/each}
+            {/if}
         </div>
     </div>
 
-    <div class="mt-40">
-        <Button label="Stop" size="base" onClick={() => stop()}/>
+    <div class="flex flex-col items-center justify-center w-full">
+        <div class="flex flex-col items-center justify-center gap-15 w-full">
+            <div class="flex flex-col items-center justify-center gap-5 w-full">
+                {#each [topCircles, bottomCircles] as row}
+                    <div class="flex flex-row items-center justify-between w-full">
+                        {#each row as index}
+                            <div
+                                    class={[
+                  "size-26 border border-stone-900 rounded-full",
+                  activeCircleIndex === index && activeSignal === "color"
+                    ? getColorClass()
+                    : "bg-stone-900",
+                ]}
+                            ></div>
+                        {/each}
+                    </div>
+                {/each}
+            </div>
+
+            <div class="flex flex-row items-center justify-between w-full">
+                {#each ["left", "right"] as side}
+                    <div
+                            class={[
+              "w-20 h-40 border border-stone-900 rounded-sm",
+              activeSignal === "pedal" && activePedal === side
+                ? "bg-white"
+                : "bg-stone-900",
+            ]}
+                    ></div>
+                {/each}
+            </div>
+        </div>
     </div>
-
-</div>
-
+</Container>

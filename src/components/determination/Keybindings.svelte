@@ -2,7 +2,7 @@
   import { type ControlId, type ControlOptions, loadControls, saveControls } from '$lib/controls';
   import { t } from '$lib/translations';
   import { Howl } from 'howler';
-  import Button from './Button.svelte';
+  import Button from '../Button.svelte';
 
   const controlLabels: Record<ControlId, string> = {
     soundDeep: $t('KEYBINDINGS.DEEP_TONE'),
@@ -73,7 +73,7 @@
         {/if}
         <div class="flex flex-col gap-2 w-full">
             {#each getControlsWithType() as control}
-                <div class="flex flex-row items-center justify-between w-full p-4 rounded-md border border-stone-400">
+                <div class="flex flex-row items-center justify-between w-full p-4 border border-stone-400">
                     <div class="flex flex-row items-center gap-4">
                         <p>{controlLabels[control[0]]}</p>
                         {#if control[0] === 'soundDeep' || control[0] === 'soundHigh'}
@@ -88,12 +88,18 @@
                             </button>
                         {/if}
                     </div>
-                    <div class="flex flex-row items-center gap-4">
+                    <div class="flex flex-row items-center gap-6">
                         <p>{control[1].key}</p>
                         {#if editingControlId === control[0]}
-                            <Button label={$t('KEYBINDINGS.CANCEL_EDIT')} size="sm" onClick={() => cancelEdit()}/>
+                            <Button label={$t('KEYBINDINGS.CANCEL_EDIT')}
+                                    size="sm"
+                                    variant="secondary"
+                                    onClick={() => cancelEdit()}/>
                         {:else}
-                            <Button label={$t('KEYBINDINGS.EDIT')} size="sm" onClick={() => startEdit(control[0])}/>
+                            <Button label={$t('KEYBINDINGS.EDIT')}
+                                    size="sm"
+                                    variant="secondary"
+                                    onClick={() => startEdit(control[0])}/>
                         {/if}
                     </div>
                 </div>

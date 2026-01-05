@@ -1,6 +1,6 @@
-import { browser } from '$app/environment';
+import { LocalStore } from '$lib/results/local-store';
 
-export type Result = {
+export type DeterminationResult = {
   timestamp: number;
   total: number;
   correct: number;
@@ -11,23 +11,11 @@ export type Result = {
   speed: string;
 }
 
-const LOCAL_STORAGE_KEY = 'results';
+export type MonotonyResult = {
+  timestamp: number;
+  total: number;
+  correct: number;
+};
 
-export function loadResults(): Result[] {
-  if (!browser) {
-    return [];
-  }
-
-  const serializedResults = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (!serializedResults) {
-    return [];
-  }
-
-  return JSON.parse(serializedResults) as Result[];
-}
-
-export function saveResult(result: Result): void {
-  const results = loadResults();
-  results.push(result);
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(results));
-}
+export const determinationStore = new LocalStore<DeterminationResult>('results');
+export const monotonyStore = new LocalStore<MonotonyResult>('monotony-results');

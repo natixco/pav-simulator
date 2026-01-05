@@ -4,8 +4,7 @@
   import { goto } from '$app/navigation';
   import LanguageSwitcher from './LanguageSwitcher.svelte';
   import { page } from '$app/state';
-
-  console.log(page.url.pathname);
+  import Button from './Button.svelte';
 
   function navigate(pathname?: string) {
     const url = new URL(window.location.href);
@@ -19,25 +18,30 @@
   }
 </script>
 
-<div class="flex flex-row items-center justify-between w-full">
-    <button onclick={() => navigate()} class="text-zinc-900 font-bold text-2xl my-10 cursor-pointer">
-        {$t("TITLE")}
-    </button>
-    <div class="flex flex-row items-center justify-center gap-4">
-        <button onclick={() => navigate('determination-test')}
-                class={[
-            'h-10 px-10 font-bold text-sm cursor-pointer tracking-wider',
-            active('determination-test') ? 'bg-stone-900 text-stone-50' : 'text-stone-900 border-b-2 border-transparent hover:border-b-stone-900',
-        ]}>
-            {$t("DETERMINATION_TEST")}
-        </button>
-        <button onclick={() => navigate('monotony-test')}
-                class={[
-            'h-10 px-10 font-bold text-sm cursor-pointer tracking-wider',
-            active('monotony-test') ? 'bg-stone-900 text-stone-50' : 'text-stone-900 border-b-2 border-transparent hover:border-b-stone-900',
-        ]}>
-            {$t("MONOTONY_TEST")}
-        </button>
+<div class="w-full flex flex-row items-center max-w-[95vw] xl:max-w-6xl mx-auto px-5">
+    <div
+            class="flex flex-col items-center w-full"
+    >
+        <div
+                class="flex flex-row items-center justify-between w-full mt-10 mb-20 bg-white p-4"
+        >
+            <button
+                    onclick={() => navigate()}
+                    class="text-zinc-900 font-bold text-2xl cursor-pointer"
+            >
+                {$t("TITLE")}
+            </button>
+            <div class="flex flex-row items-center justify-center gap-4">
+                <Button label={$t("DETERMINATION_TEST.TITLE")} size="base"
+                        variant={ active("determination-test") ? 'primary' : 'outline'}
+                        disabled={ active("determination-test")}
+                        onClick={() => navigate("determination-test")}/>
+                <Button label={$t("MONOTONY_TEST.TITLE")} size="base"
+                        variant={ active("monotony-test") ? 'primary' : 'outline'}
+                        disabled={ active("monotony-test")}
+                        onClick={() => navigate("monotony-test")}/>
+            </div>
+            <LanguageSwitcher/>
+        </div>
     </div>
-    <LanguageSwitcher/>
 </div>
