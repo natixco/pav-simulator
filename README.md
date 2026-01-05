@@ -1,22 +1,30 @@
-# Vienna Determination Test
+# PÁV simulator
 
-A web-based simulator of the Vienna Determination Test (DT), a cognitive assessment tool from the Vienna Test System commonly used in driving aptitude evaluations. This simulator tests reaction speed, attention, and stress tolerance through multiple-choice reactions to different stimuli. 
+A web-based practice tool for the Hungarian PÁV assessment, including a determination test and a monotony test.
+ 
+The Pályaalkalmassági Vizsgálat (PÁV) is a mandatory psychological and skills assessment for professional drivers in Hungary. In addition to computer-based tests that evaluate reaction speed and attention, the process also includes a personal interview with a psychologist to assess personality traits and driving attitude.
 
-This test is also used in Hungary as part of the PÁV (Pályaalkalmassági Vizsgálat) examination for professional drivers.
+Try it out at https://pav-simulator.patrikvisloczki.com
 
 ## Features
+
+### Determination test
+A simulator for the Vienna Determination Test (DT) focusing on reaction speed and stress tolerance.
 - Multiple modes
-  - Adaptive: The presentation speed adjusts to the performance level of the respondent
-  - Action: No time limit
-  - Reaction: Fixed time limit
+  - Unlimited (until the user stops the test)
+  - Limited (until a givem amount of time or until the user stops the test)
 - Multiple speed settings (Slow, Medium, Fast)
 - Various stimuli types:
   - Color signals (Red, Blue, White, Green, Yellow)
   - Pedal signals (Left, Right)
   - Audio signals (High and Low tones)
 - Customizable control bindings
-- Performance tracking (accuracy and response times)
 - Results history
+
+### Monotony test
+A simulator designed to measure sustained attention under repetitive conditions.
+- Visual pattern recognition: Quickly decide if the bottom pattern matches any of patterns shown above.
+- Realistic duration: Practice with a 5–10 minute timeframe, mirroring the typical length of the actual exam.
 
 ## Used references
 - https://www.youtube.com/watch?v=OtfY4JJdYf0
